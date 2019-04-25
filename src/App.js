@@ -12,7 +12,7 @@ class App extends Component {
         {
             id: 2,
             title: 'Place Order',
-            completed: false
+            completed: true
         },
         {
             id: 3,
@@ -21,12 +21,28 @@ class App extends Component {
         }
     ]
   }
+  // Toggle Complete
+  markComplete = (id) => {
+    this.setState({ todos: this.state.todos.map(todo => {
+      if(todo.id === id) {
+        todo.completed = !todo.completed
+      }
+      return todo;
+    }) });
+  }
+
+  // Delete Todo
+  // delTodo = (id) => {
+  //   axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+  //     .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] }));
+  // }
+
   render(){
     // console.log(this.state.todos);
     return (
       <div className="App">
         {/* <h1>App</h1> */}
-        <Todos todos={this.state.todos} />
+        <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
       </div>
     );
   }  
